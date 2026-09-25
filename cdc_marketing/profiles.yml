@@ -1,6 +1,6 @@
 cdc_marketing:
   target: "{{ env_var('DBT_TARGET', 'dev') }}"
-
+  
   meta:
     base: &base
       type: databricks
@@ -25,33 +25,36 @@ cdc_marketing:
 
     ci: &ci_service_account
       <<: *base_auth
-      catalog:
+      catalog: 
       schema: "{{ env_var('DEV_SCHEMA') }}"
-      host: 
-      http_path:
+      host: dbc-0196bfaf-1e17.cloud.databricks.com
+      http_path: 
 
     staging: &staging_service_account
       <<: *ci_service_account
-      catalog:
-      schema:
-      http_path:
+      catalog: 
+      schema: 
+      http_path: 
 
     production: &production_service_account
       <<: *base_auth
       catalog:
-      schema:
-      host: 
+      schema: 
+      host: dbc-0196bfaf-1e17.cloud.databricks.com
       http_path:
 
-
+      
 elementary:
+  target: "{{ env_var('DBT_TARGET', 'dev') }}"
   outputs:
+    dev:
+      <<: *dev_service_account
     production:
       <<: *production_service_account
-      catalog:
-      schema:
+      catalog: 
+      schema: elementary
 
     staging:
       <<: *staging_service_account
-      catalog:
-      schema:
+      catalog: 
+      schema: elementary
